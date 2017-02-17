@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 
-class Solution(object):
+class Solution1(object):
     def threeSum(self, nums):
         """
         :type nums: List[int]
@@ -21,13 +21,17 @@ class Solution(object):
         for n in nums:
             meta_nums[n - minimum] += 1
 
+        high = len(meta_nums) - 1
+
         for x in xrange(0, 0 - minimum + 1):
             if meta_nums[x] == 0:
                 continue
 
+            high = len(meta_nums) - 1
+
             meta_nums[x] -= 1
             a = x + minimum
-            for z in xrange(len(meta_nums) - 1, 0 - minimum - 1, -1):
+            for z in xrange(high, 0 - minimum - 1, -1):
                 if meta_nums[z] == 0:
                     continue
                 c = z + minimum
@@ -41,6 +45,7 @@ class Solution(object):
 
                 if meta_nums[y] != 0:
                     rs.append([a, b, c])
+                    high = z
 
                 meta_nums[z] += 1
 
@@ -49,7 +54,36 @@ class Solution(object):
         return rs
 
 
+
+
+
+class Solution:
+    # @return a list of lists of length 3, [[val1,val2,val3]]
+    def threeSum(self, num):
+        num.sort()
+        res = []
+        for i in range(len(num)-2):
+            if i == 0 or num[i] > num[i-1]:
+                left = i + 1; right = len(num) - 1
+                while left < right:
+                    if num[left] + num[right] == -num[i]:
+                        res.append([num[i], num[left], num[right]])
+                        left += 1; right -= 1
+                        while left < right and num[left] == num[left-1]: left +=1
+                        while left < right and num[right] == num[right+1]: right -= 1
+                    elif num[left] + num[right] < -num[i]:
+                        while left < right:
+                            left += 1
+                            if num[left] > num[left-1]: break
+                    else:
+                        while left < right:
+                            right -= 1
+                            if num[right] < num[right+1]: break
+        return res
+
+
 s = Solution()
+
 
 print s.threeSum([3, 0, -2, -1, 1, 2])
 # print s.threeSum([0, 0, 0])
