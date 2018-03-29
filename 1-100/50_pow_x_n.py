@@ -24,10 +24,10 @@ class Solution(object):
 
         n = abs(n)
 
-        rs, n = self.mul_by_n(x, n)
-        real_rs = rs
+        t_rs, r_n = self.mul_by_n(x, n)
+        real_rs = t_rs
         while n > 0:
-            t_rs, n = self.mul_by_n(x, n)
+            t_rs, r_n = self.mul_by_n(x, r_n)
             real_rs *= t_rs
 
         if is_negative:
