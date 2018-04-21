@@ -7,27 +7,20 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        start_index, end_index, sum_range, max_end_index = 0, 0, nums[0], -1
-        rs = []
-        count_rs = len(rs)
-        while start_index < len(nums) :
-            rs = self.find_from_start_end_index_rs(nums, k, start_index)
-            count_rs += len(rs)
-            start_index += 1
+        a_sum, result = 0, 0
+        preSum = {}
+        preSum[0] = 1
 
-        return count_rs
-
-    def find_from_start_end_index_rs(self, nums, k, from_index):
-        end_index, sum_range = from_index, nums[from_index]
-        rs = []
-        if nums[from_index] == k:
-            rs.append((from_index, end_index))
-        while end_index < len(nums) - 1:
-            end_index += 1
-            sum_range += nums[end_index]
-            if sum_range == k:
-                rs.append((from_index, end_index))
-        return rs
+        for i in range(0, len(nums)):
+            a_sum += nums[i]
+            if preSum.get(a_sum - k) is not None:
+                result += preSum.get(a_sum - k)
+            if preSum.get(a_sum) is None:
+                x = 1
+            else:
+                x = preSum.get(a_sum) + 1
+            preSum[a_sum] = x
+        return result
 
 
 s = Solution()
