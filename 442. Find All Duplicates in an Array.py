@@ -18,6 +18,6 @@ class Solution(object):
 
         return rs
 
+
 s = Solution()
-print(s.findDuplicates([4,3,2,7,8,2,3,1]
-))
+print(s.findDuplicates([4, 3, 2, 7, 8, 2, 3, 1]))
