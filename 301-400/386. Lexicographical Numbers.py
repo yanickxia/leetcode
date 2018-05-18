@@ -6,38 +6,20 @@ class Solution(object):
         :type n: int
         :rtype: List[int]
         """
-        rs = {}
-        root_rs = rs
-        i = 0
-        level_cache = {}
-        current_level = 1
-        while i <= n:
-            i += 1
-            lv = len(str(i))
-            if lv > current_level:
-                current_level += 1
-                rs = level_cache[lv - 1]
-
-            if rs.get(int(i / 10)) is None:
-                rs[i] = {}
-                if level_cache.get(lv) is None:
-                    level_cache[lv] = {}
-                level_cache[lv][i] = rs.get(i)
+        res = []
+        cur = 1
+        for i in range(n):
+            res.append(cur)
+            if cur * 10 <= n:
+                cur *= 10
+            elif cur % 10 != 9 and cur + 1 <= n:
+                cur += 1
             else:
-                rs.get(int(i / 10))[i] = {}
-                if level_cache.get(lv) is None:
-                    level_cache[lv] = {}
-                level_cache[lv][i] = rs.get(int(i / 10))[i]
-            ts = []
-            self.travel_map_to_list(root_rs, ts)
-        return ts
-
-    def travel_map_to_list(self, rs, lst):
-        for k in rs.keys():
-            lst.append(k)
-            if rs.get(k) is not {}:
-                self.travel_map_to_list(rs.get(k), lst)
+                while (cur / 10) % 10 == 9:
+                    cur /= 10
+                cur = cur / 10 + 1
+        return res
 
 
 s = Solution()
-print(s.lexicalOrder(5000))
+print(s.lexicalOrder(99))
