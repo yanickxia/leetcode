@@ -18,55 +18,29 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
+        rs = [0] * 10
+        char_map = {}
+        for i in range(ord('a'), ord('z') + 1):
+            char_map[chr(i)] = 0
+        for c in s:
+            char_map[c] += 1
 
-        all_res = {}
+        rs[0] = char_map.get('z')
+        rs[2] = char_map.get('w')
+        rs[4] = char_map.get('u')
+        rs[6] = char_map.get('x')
+        rs[8] = char_map.get('g')
+        rs[3] = char_map.get('h') - rs[8]
+        rs[7] = char_map.get('s') - rs[6]
+        rs[5] = char_map.get('v') - rs[7]
+        rs[1] = char_map.get('o') - rs[0] - rs[2] - rs[4]
+        rs[9] = (char_map.get('n') - rs[1] - rs[7]) / 2
 
-        for i in range(len(s)):
-            c = s[i]
-            numbers = self.numbers_char_map.get(c)
+        r_str = ""
+        for i in range(10):
+            r_str += str(i) * rs[i]
 
-            for ns in numbers:
-                all_item = all_res.get(ns)
-                if all_item is None:
-                    all_res[ns] = [0] * len(ns)
-
-                index_i_list = self.index_c_in_string(c, ns)
-                if len(index_i_list) == 1:
-                    all_res[ns][index_i_list[0]] += 1
-                else:
-                    is_set = False
-                    for i in range(len(index_i_list) - 1):
-                        if all_res[ns][index_i_list[i]] <= all_res[ns][index_i_list[i + 1]]:
-                            all_res[ns][index_i_list[i]] += 1
-                            is_set = True
-                    if not is_set:
-                        all_res[ns][index_i_list[len(index_i_list) - 1]] += 1
-
-        rs = []
-        for k, v in all_res.items():
-            mv = min(v)
-            while mv > 0:
-                rs.append(k)
-
-                #remove
-                for c in k:
-
-
-                mv -= 1
-        x_n = [self.numbers_number.get(x) for x in rs]
-
-        return "".join([str(e) for e in sorted(x_n)])
-
-    def index_c_in_string(self, c, s):
-        k = str(c + "_" + s)
-        if self.index_cache.get(k) is None:
-            rs = []
-            for i in range(len(s)):
-                if s[i] == c:
-                    rs.append(i)
-            self.index_cache[k] = rs
-
-        return self.index_cache.get(k)
+        return r_str
 
 
 if __name__ == '__main__':
