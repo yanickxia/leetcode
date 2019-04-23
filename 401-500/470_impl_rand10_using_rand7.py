@@ -17,12 +17,12 @@ class Solution(object):
         :rtype: int
         """
         matrix = [[1, 2, 3, 4, 5, 6, 7],
-                  [8, 9,10, 1, 2, 3, 4],
-                  [5, 6, 7, 8, 9,10, 1],
+                  [8, 9, 10, 1, 2, 3, 4],
+                  [5, 6, 7, 8, 9, 10, 1],
                   [2, 3, 4, 5, 6, 7, 8],
-                  [9,10, 1, 2, 3, 4, 5],
-                  [6, 7, 8, 9,10, 0, 0], # Last 2 elements are invalid
-                  [0, 0, 0, 0, 0, 0, 0]] # Entire row is invalid
+                  [9, 10, 1, 2, 3, 4, 5],
+                  [6, 7, 8, 9, 10, 0, 0],  # Last 2 elements are invalid
+                  [0, 0, 0, 0, 0, 0, 0]]  # Entire row is invalid
         while True:
             row = rand7() - 1
             col = rand7() - 1
