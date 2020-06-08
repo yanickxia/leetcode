@@ -3,8 +3,8 @@ use std::cmp::max;
 pub struct Solution {}
 
 impl Solution {
-    pub fn stone_game(piles: Vec<i32>) -> bool {
-        return Solution::stone_game_goal(&piles) > 0;
+    pub fn predict_the_winner(piles: Vec<i32>) -> bool {
+        return Solution::stone_game_goal(&piles) >= 0;
     }
 
     fn stone_game_goal(piles: &[i32]) -> i32 {
@@ -36,8 +36,8 @@ mod tests {
 
     #[test]
     fn it_works() {
-        assert_eq!(Solution::stone_game(vec![5, 3, 4, 5]), true);
-        assert_eq!(Solution::stone_game(vec![7, 7, 12, 16, 41, 48, 41, 48, 11, 9, 34, 2, 44, 30, 27, 12, 11, 39, 31, 8, 23, 11, 47, 25, 15, 23, 4, 17, 11, 50, 16, 50, 38, 34, 48, 27, 16, 24, 22, 48, 50, 10, 26, 27, 9, 43, 13, 42, 46, 24]), true);
+        assert_eq!(Solution::predict_the_winner(vec![5, 3, 4, 5]), true);
+        assert_eq!(Solution::predict_the_winner(vec![7, 7, 12, 16, 41, 48, 41, 48, 11, 9, 34, 2, 44, 30, 27, 12, 11, 39, 31, 8, 23, 11, 47, 25, 15, 23, 4, 17, 11, 50, 16, 50, 38, 34, 48, 27, 16, 24, 22, 48, 50, 10, 26, 27, 9, 43, 13, 42, 46, 24]), true);
     }
 }
 
