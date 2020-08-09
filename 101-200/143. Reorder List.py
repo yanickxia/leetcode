@@ -1,4 +1,7 @@
 # Definition for singly-linked list.
+import collections
+
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -10,37 +13,36 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        flag = True
+        if head == None or head.next == None:
+            return
+        h = head
+        queue = collections.deque()
         pre = None
         while head:
-            if flag:
-                pre = head
-                head = head.next
-            else:
-                next = head
+            queue.append(head)
+            head = head.next
+        while queue:
+            left = queue.popleft()
+            if not queue:
+                left.next = None
+                if pre:
+                    pre.next = left
+                return
+            right = queue.pop()
 
-                pre_last = head
-                last = head.next
+            left.next = right
+            right.next = None
+            if pre:
+                pre.next = left
 
-                if not last:
-                    break
-
-                while last.next:
-                    pre_last = last
-                    last = last.next
-
-                pre_last.next = None
-                pre.next = last
-                last.next = head
-                head = last.next
-
-            flag = not flag
+            pre = right
 
 
 if __name__ == '__main__':
     s = Solution()
     h = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
     s.reorderList(h)
+    print(h)
     h = ListNode(1, ListNode(2, ListNode(3, ListNode(4))))
     s.reorderList(h)
     print(h)
