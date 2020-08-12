@@ -6,16 +6,27 @@ from typing import List
 
 
 class Solution(object):
+    def jump2(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        jumps = curEnd = maxReach = 0
+        for i in range(len(nums) - 1):
+            maxReach = max(maxReach, nums[i] + i)
+            if i == curEnd:
+                jumps += 1
+                curEnd = maxReach
+        return jumps
+
     def jump(self, nums):
-        if not nums or len(nums) ==1:
-            return 0
-        dp = [len(nums)] * len(nums)
-        dp[0] = 0
-        for i in range(len(nums)):
-            for j in range(i):
-                if i <= j + nums[j]:
-                    dp[i] = min(dp[i], dp[j] + 1)
-        return dp[-1]
+        step, n, i, cur = 0, len(nums), 0, 0
+        while cur < n - 1:
+            step += 1
+            pre = cur
+            for i in range(pre + 1):
+                cur = max(cur, i + nums[i])
+        return step
 
 
 if __name__ == '__main__':
