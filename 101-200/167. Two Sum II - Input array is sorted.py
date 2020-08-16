@@ -11,3 +11,8 @@ class Solution:
                 return [i + 1, j + 1]
             else:
                 i += 1
+
+
+if __name__ == '__main__':
+    s = Solution()
+    print(s.twoSum([1, 2, 3, 4, 5], 4))
