@@ -33,5 +33,5 @@ class Solution:
 
         if tree.left:
             self.__listOfDepth(tree.left, level+1, nodes)
-        if tree.right
+        if tree.right:
             self.__listOfDepth(tree.right, level+1, nodes)
