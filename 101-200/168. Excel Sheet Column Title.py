@@ -6,15 +6,15 @@ class Solution:
         rs = ''
         while n > 26:
             k = n
-            c = 0
+            tmp = 1
             while k > 26:
-                k = int(k / 26)
-                c += 1
+                k = int(k/26)
+                tmp *= 26
             rs += chars[k]
-
-            n = k - ((26 ** c) * 26)
-        print(rs)
+            n = n - tmp
+        rs += chars[n]
         return rs
 if __name__ == '__main__':
     s = Solution()
     print(s.convertToTitle(701))
+    print(s.convertToTitle(28))
