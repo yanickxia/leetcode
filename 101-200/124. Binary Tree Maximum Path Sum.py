@@ -7,58 +7,61 @@ class TreeNode:
 
 
 class Solution:
-
     def __init__(self):
         self.cache = {}
-        self.maxium = float("-INF")
 
     def maxPathSum(self, root: TreeNode) -> int:
-        self.__maxPathSum(root)
-        return self.maxium
-
-    def __maxPathSum(self, root) -> int:
         if not root:
-            return float("-INF")
+            return float('-INF')
 
-        if root in self.cache:
-            return self.cache[root]
+        def dfs(node: TreeNode):
+            if not node:
+                return 0
+            if node in self.cache:
+                return self.cache[node]
 
-        if not root.left and not root.right:
-            self.cache[root] = root.val
-            return root.val
+            rs = max(node.val + dfs(node.left), node.val + dfs(node.right), node.val)
+            self.cache[node] = rs
+            return rs
 
         cur = root.val
-        if root.left:
-            l = self.__maxPathSum(root.left)
-            if l > 0:
-                cur += l
-        if root.right:
-            r = self.__maxPathSum(root.right)
-            if r > 0:
-                cur += r
+        l = dfs(root.left)
+        r = dfs(root.right)
+        if l > 0:
+            cur += l
+        if r > 0:
+            cur += r
 
-        m = max(cur, self.__maxPathSum(root.left), self.__maxPathSum(root.right))
-        if m > self.maxium:
-            self.maxium = m
-        return cur
+        return max(cur,
+                   self.maxPathSum(root.left),
+                   self.maxPathSum(root.right))
 
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.maxPathSum(TreeNode(5, TreeNode(4,), TreeNode(8))))
 
+    print(s.maxPathSum(TreeNode(9, TreeNode(6), TreeNode(-3, TreeNode(-6), TreeNode(2, TreeNode(2, TreeNode(-6,
+                                                                                                            TreeNode(
+                                                                                                                -6)),
+                                                                                                TreeNode(-6)))))))
+    print(s.maxPathSum(TreeNode(1, TreeNode(-2), TreeNode(3))))
+    print(s.maxPathSum(TreeNode(2, TreeNode(-1))) == 2)
+    print(s.maxPathSum(TreeNode(5, TreeNode(4), TreeNode(8))) == 17)
     s = Solution()
-    print(s.maxPathSum(TreeNode(0)))
+    print(s.maxPathSum(TreeNode(0)) == 0)
     s = Solution()
     print(s.maxPathSum(TreeNode(-10, TreeNode(35), TreeNode(7))) == 35)
     s = Solution()
     print(s.maxPathSum(
         TreeNode(1, TreeNode(-2, TreeNode(1, TreeNode(-1)), TreeNode(3)), TreeNode(-3, TreeNode(-2)))) == 3)
     s = Solution()
-    print(s.maxPathSum(TreeNode(2, TreeNode(-1))) == 2)
+
     s = Solution()
     print(s.maxPathSum(TreeNode(1, TreeNode(2))) == 3)
     s = Solution()
     print(s.maxPathSum(TreeNode(-10, TreeNode(9), TreeNode(20, TreeNode(15, TreeNode(7))))))
     s = Solution()
     print(s.maxPathSum(TreeNode(1, TreeNode(2), TreeNode(3))) == 6)
+    s = Solution()
+    print(s.maxPathSum(TreeNode(5, TreeNode(4, TreeNode(11, TreeNode(7), TreeNode(2))),
+                                TreeNode(8, TreeNode(13), TreeNode(4, right=TreeNode(1))))))
