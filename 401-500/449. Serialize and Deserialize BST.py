@@ -12,37 +12,38 @@ class Codec:
         """Encodes a tree to a single string.
         """
         if not root:
-            return ""
+            return "()"
 
         return "(" + str(root.val) + "," + self.serialize(root.left) + "," + self.serialize(root.right) + ")"
 
     def deserialize(self, data: str) -> TreeNode:
         """Decodes your encoded data to tree.
         """
-        if not data:
+        if not data or '()' == data:
             return None
         root_str = data[1:len(data) - 1]
         root_val = root_str.split(",")[0]
         sub_str = root_str[len(root_val) + 1:]
         root = TreeNode(int(root_val))
-        if len(sub_str) == 0:
+        if len(sub_str) == 1:
             return root
 
-        i, pattern = 1, 1
-        while pattern != 0:
+        i, pattern = 0, 1
+        while pattern != 0 and i < len(sub_str):
             i += 1
             if sub_str[i] == "(":
                 pattern += 1
             if sub_str[i] == ")":
                 pattern -= 1
 
-        left = sub_str[0:i+1]
-        right = sub_str[i+2:]
+        left = sub_str[0:i + 1]
+        right = sub_str[i + 2:]
 
         root.left = self.deserialize(left)
         root.right = self.deserialize(right)
 
         return root
+
 
 # Your Codec object will be instantiated and called as such:
 # codec = Codec()
@@ -55,4 +56,5 @@ if __name__ == '__main__':
                  TreeNode(-3, right=TreeNode(11))))
     print(encode)
 
-    print(s.deserialize(encode))
+    root = s.deserialize(encode)
+    print(root)
