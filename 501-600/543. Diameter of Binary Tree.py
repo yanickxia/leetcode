@@ -10,26 +10,19 @@ class Solution:
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
         if not root:
             return 0
+        self.ans = 0
 
         def longest(node: TreeNode):
             if not node:
-                return 0
-            if node.left and node.right:
-                return max(longest(node.left), longest(node.right)) + 1
-            if node.left:
-                return longest(node.left) + 1
-            if node.right:
-                return longest(node.right) + 1
-            return 0
+                return -1
 
-        if root.left and root.right:
-            return max(longest(root.left) + longest(root.right) + 2, self.diameterOfBinaryTree(root.left),
-                       self.diameterOfBinaryTree(root.right))
-        if root.left:
-            return max(longest(root.left) + 1, self.diameterOfBinaryTree(root.left))
-        if root.right:
-            return max(longest(root.right) + 1, self.diameterOfBinaryTree(root.right))
-        return 0
+            l = longest(node.left) + 1
+            r = longest(node.right) + 1
+            self.ans = max(l + r, self.ans)
+            return max(l, r)
+
+        longest(root)
+        return self.ans
 
 
 if __name__ == '__main__':
