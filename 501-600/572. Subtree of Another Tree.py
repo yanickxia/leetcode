@@ -5,7 +5,7 @@ class TreeNode:
         self.left = left
         self.right = right
 
-
+# 7Min
 class Solution:
     def isSubtree(self, s: TreeNode, t: TreeNode) -> bool:
         if not s:
