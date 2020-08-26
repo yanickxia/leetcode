@@ -1,14 +1,13 @@
-# Definition for a binary tree node.
+# LINK 530
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
 
-# 6 Min
-
 class Solution:
-    def getMinimumDifference(self, root: TreeNode) -> int:
+    def minDiffInBST(self, root: TreeNode) -> int:
         def travel(root, nodes):
             if not root:
                 return
@@ -24,8 +23,3 @@ class Solution:
             nodes[i] = abs(nodes[i] - nodes[i + 1])
 
         return min(nodes)
-
-
-if __name__ == '__main__':
-    s = Solution()
-    print(s.getMinimumDifference(TreeNode(236, TreeNode(104, None, TreeNode(227)), TreeNode(701, None, TreeNode(911)))))
