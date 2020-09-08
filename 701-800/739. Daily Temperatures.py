@@ -2,6 +2,7 @@ import collections
 from typing import List
 
 
+# 43 Min
 class Solution:
     def dailyTemperatures(self, T: List[int]) -> List[int]:
         l = len(T)
