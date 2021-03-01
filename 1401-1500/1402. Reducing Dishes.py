@@ -1,31 +1,27 @@
 from typing import List
 
+"""
+最终上菜的顺序肯定是从小到大
 
-###
-#
-# i,j -> Max Satisfaction At Rang(i,j)
-# F(i,j) -> Max( Max(F(i,j-1), F(i,j-1)+ S[j-1]*j), Max(F(i+1,j), F(i+1,j) + S[i] ))
-#        -> Max(0,S[i-1]*i) IF i == j
-###
+逆序累加，第二轮要因为时间价值 +1，因此要把之前加过的值都再加一遍，当某一次我们加上 负值菜 没有收益的时候，就可以提前终结了
+
+"""
+
 
 class Solution:
     def maxSatisfaction(self, satisfaction: List[int]) -> int:
-        i, j, n = 1, 1, len(satisfaction) + 1
-        max_satisfaction = [[0 for j in range(n)] for i in range(n)]
-        for i in range(1, n):
-            for j in range(1, n):
-                if i == j:
-                    max_satisfaction[i][i] = max(0, satisfaction[i - 1])
+        i, j, n = 1, 1, len(satisfaction)
+        satisfaction.sort()
 
-        for k in range(1, n):
-            for i in range(1, n - k):
-                for j in range(i + k, n):
-                    max_satisfaction[i][j] = max(
-                        max(max_satisfaction[i][j - 1], max_satisfaction[i][j - 1] + ((j - i) * satisfaction[j - 1])),
-                        max(max_satisfaction[i + 1][j], max_satisfaction[i + 1][j] + satisfaction[i])
-                    )
+        ans, append = 0, 0
+        for n in range(n, 0, -1):
+            this = ans + append + satisfaction[n - 1]
+            if this < ans:
+                return ans
+            ans = this
+            append += satisfaction[n - 1]
 
-        print(max_satisfaction)
+        return ans
 
 
 if __name__ == '__main__':
