@@ -3,38 +3,22 @@ from typing import List
 
 class Solution:
     def leastBricks(self, wall: List[List[int]]) -> int:
-        min_cross = len(wall)
-        raw_col = len(wall)
-
-        while True:
-
-            current_walls = []
-            current_min = float("INF")
-
-            wall = [x for x in wall if len(x) > 1]
-            current_cross = len(wall)
-
-            for i in range(0, len(wall)):
-                current_wall = wall[i][0]
-                if current_wall < current_min:
-                    current_min = current_wall
-                current_walls.append(current_wall)
-
-            for j in range(0, len(current_walls)):
-                replace = current_walls[j] - current_min
-                if replace == 0:
-                    current_cross -= 1
-                    wall[j] = wall[j][1:]
+        pointers = {}
+        max_block = sum(wall[0])
+        for w in wall:
+            cur = 0
+            for i in w:
+                cur += i
+                if cur not in pointers:
+                    pointers[cur] = 1
                 else:
-                    wall[j][0] = replace
+                    pointers[cur] += 1
+        del pointers[max_block]
+        if len(pointers) == 0:
+            return len(wall)
 
-            if len(wall) == 0:
-                return min_cross
+        return len(wall) - max(pointers.values())
 
-            current_cross += (raw_col - len(wall))
-
-            if current_cross < min_cross:
-                min_cross = current_cross
 
 
 if __name__ == '__main__':
