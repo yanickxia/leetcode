@@ -1,6 +1,7 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 from typing import List
 
+
 # time cost: 17 min
 class Solution:
     class Item:
@@ -16,13 +17,13 @@ class Solution:
 
         for i in range(0, len(paths)):
             parsed = Solution.parse(paths[i])
-            for j in range(0,len(parsed)):
+            for j in range(0, len(parsed)):
                 if parsed[j].content not in all_contents:
                     all_contents[parsed[j].content] = [parsed[j].path]
                 else:
                     all_contents[parsed[j].content].append(parsed[j].path)
         ans = []
-        for k,v in all_contents.items():
+        for k, v in all_contents.items():
             if len(v) > 1:
                 ans.append(v)
         return ans
