@@ -5,6 +5,8 @@ from typing import List
 # 解体思路，只有一个单向的 LIST 才能完成，无论是分段还是环了，都无法完成，因此用 LinkedList 显然特别好解决这个问题
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        return self.best_canFinish(numCourses, prerequisites)
+
         prerequisites_map = {}
         can_reach = set()
         for prerequisite in prerequisites:
@@ -81,7 +83,7 @@ if __name__ == '__main__':
     print(s.canFinish(8, [[1, 0], [2, 6], [1, 7], [6, 4], [7, 0], [0, 5]]) == True)
     print(s.canFinish(3, [[1, 0], [2, 0], [0, 2]]) == False)
     print(s.canFinish(5, [[1, 4], [2, 4], [3, 1], [3, 2]]))
-    print(s.canFinish(20, [[0, 10], [3, 18], [5, 5], [6, 11], [11, 14], [13, 1], [15, 1], [17, 4]]))
+    print(s.canFinish(20, [[0, 10], [3, 18], [5, 5], [6, 11], [11, 14], [13, 1], [15, 1], [17, 4]]) == False)
     print(s.canFinish(2, [[1, 0], [0, 1]]) == False)
     print(s.canFinish(2, [[1, 0]]) == True)
 
